@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>Lab01 - Tabular Data</title>
+<title>TutorialNotebook</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13124,8 +13124,8 @@ div#notebook {
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><h1>Shane Westerfer and Jared Blavatt</h1></p>
-<p><h2>Intro to Data Science Tutorial</h2></p>
-<p><p>Shane Westerfer / Jared Blavatt <br /> <br /> <a href="https://corgis-edu.github.io/corgis/csv/school_scores">SAT Scores Data</a> <br /> <a href="https://corgis-edu.github.io/corgis/csv/state_demographics/">State Demographics Data</a> <br /> <br /> The SAT Scores data set provides a comprehensive overview of a decade&rsquo;s worth of SAT score averages from 2005- 2015 broken down by state. The data set provides a frequency distribution on income brackets and breaks down average scores by these family income brackets, namely less than 20k, 20-40k, 40-60k, 60-80k, and more than 100k. Additionally, the data set provides average scores as well as a frequency distribution of score ranges grouped by gender. Furthermore, there is some additional context of academic strength in the form of average GPA and average years taken of Arts/Music, English, Foreign Languages, Mathematics, Natural Sciences, and Social Sciences, but these will not be utilized as heavily in the tutorial. Instead, we will look to identify correlations by combining the SAT scores from 2007 - 2014 with the CORGIS State Demographics data set. <br /> <br /> The States Demographics data set gives a summarized view of information collected from the United States Census Bureau over the years 2007 - 2014, however the information provided is a condensed and summarized set of data from 2015 broken up between all 50 of the states. The data set differentiates between those whose education ended with a high school degree or above compared to those who have attained a bachelor's degree or above. Employment is classified as farm or non-farm related, and it includes a percent change for the non-farm sector to give context to what areas are urbanizing. Beyond exploring the well-established trend of income vs. average score, we can investigate how much a change from one income bracket to another affects SAT score improvements i.e. are there diminishing returns, or if it affects both verbal and math scores equally. The data set also contains information pertaining to languages spoken in a household, firm ownership/employment, and home ownership, among other things. These miscellaneous points of data can be used to build a profile of the type of environment that creates higher standardized test scores, or how higher test scores can be indicative of higher/lower values in these areas. <br /> <br /> <strong>Questions to Consider for the Combined SAT Scores and State Demographics Data: </strong> <br /> </p></p>
+<p><h2>Intro to Data Science Tutorial</h2>
+<a href="https://corgis-edu.github.io/corgis/csv/school_scores"><br>SAT Scores Data</a> <br /> <a href="https://corgis-edu.github.io/corgis/csv/state_demographics/">State Demographics Data</a> <br /> <br /> The SAT Scores data set provides a comprehensive overview of a decade&rsquo;s worth of SAT score averages from 2005- 2015 broken down by state. The data set provides a frequency distribution on income brackets and breaks down average scores by these family income brackets, namely less than 20k, 20-40k, 40-60k, 60-80k, and more than 100k. Additionally, the data set provides average scores as well as a frequency distribution of score ranges grouped by gender. Furthermore, there is some additional context of academic strength in the form of average GPA and average years taken of Arts/Music, English, Foreign Languages, Mathematics, Natural Sciences, and Social Sciences, but these will not be utilized as heavily in the tutorial. Instead, we will look to identify correlations by combining the SAT scores from 2007 - 2014 with the CORGIS State Demographics data set. <br /> <br /> The States Demographics data set gives a summarized view of information collected from the United States Census Bureau over the years 2007 - 2014, however the information provided is a condensed and summarized set of data from 2015 broken up between all 50 of the states. The data set differentiates between those whose education ended with a high school degree or above compared to those who have attained a bachelor's degree or above. Employment is classified as farm or non-farm related, and it includes a percent change for the non-farm sector to give context to what areas are urbanizing. Beyond exploring the well-established trend of income vs. average score, we can investigate how much a change from one income bracket to another affects SAT score improvements i.e. are there diminishing returns, or if it affects both verbal and math scores equally. The data set also contains information pertaining to languages spoken in a household, firm ownership/employment, and home ownership, among other things. These miscellaneous points of data can be used to build a profile of the type of environment that creates higher standardized test scores, or how higher test scores can be indicative of higher/lower values in these areas. <br /> <br /> <strong>Questions to Consider for the Combined SAT Scores and State Demographics Data: </strong> <br /> &lt;/p&gt;</p>
 <ul>
 <li>What is the relationship between prevalence of farms and average SAT scores? Does it affect male and female scores in the same way?</li>
 <li>Do states with a higher presence of bachelor degrees or higher perform better on the SATs?</li>
@@ -13139,12 +13139,1372 @@ div#notebook {
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let us begin by loading our data sets. First: <strong>SAT Scores</strong> as <code>df_sat</code>.</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[67]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># YOUR CODE HERE and Answers here AS COMMENTS.</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+
+<span class="n">df_sat</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;school_scores.csv&quot;</span><span class="p">)</span>
+
+<span class="n">df_sat</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[67]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Year</th>
+      <th>State.Code</th>
+      <th>State.Name</th>
+      <th>Total.Math</th>
+      <th>Total.Test-takers</th>
+      <th>Total.Verbal</th>
+      <th>Academic Subjects.Arts/Music.Average GPA</th>
+      <th>Academic Subjects.Arts/Music.Average Years</th>
+      <th>Academic Subjects.English.Average GPA</th>
+      <th>Academic Subjects.English.Average Years</th>
+      <th>...</th>
+      <th>Score Ranges.Between 600 to 700.Math.Total</th>
+      <th>Score Ranges.Between 600 to 700.Verbal.Females</th>
+      <th>Score Ranges.Between 600 to 700.Verbal.Males</th>
+      <th>Score Ranges.Between 600 to 700.Verbal.Total</th>
+      <th>Score Ranges.Between 700 to 800.Math.Females</th>
+      <th>Score Ranges.Between 700 to 800.Math.Males</th>
+      <th>Score Ranges.Between 700 to 800.Math.Total</th>
+      <th>Score Ranges.Between 700 to 800.Verbal.Females</th>
+      <th>Score Ranges.Between 700 to 800.Verbal.Males</th>
+      <th>Score Ranges.Between 700 to 800.Verbal.Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2005</td>
+      <td>AL</td>
+      <td>Alabama</td>
+      <td>559</td>
+      <td>3985</td>
+      <td>567</td>
+      <td>3.92</td>
+      <td>2.2</td>
+      <td>3.53</td>
+      <td>3.9</td>
+      <td>...</td>
+      <td>1096</td>
+      <td>596</td>
+      <td>613</td>
+      <td>1209</td>
+      <td>156</td>
+      <td>292</td>
+      <td>448</td>
+      <td>219</td>
+      <td>250</td>
+      <td>469</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2005</td>
+      <td>AK</td>
+      <td>Alaska</td>
+      <td>519</td>
+      <td>3996</td>
+      <td>523</td>
+      <td>3.76</td>
+      <td>1.9</td>
+      <td>3.35</td>
+      <td>3.9</td>
+      <td>...</td>
+      <td>787</td>
+      <td>423</td>
+      <td>375</td>
+      <td>798</td>
+      <td>47</td>
+      <td>116</td>
+      <td>163</td>
+      <td>109</td>
+      <td>115</td>
+      <td>224</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2005</td>
+      <td>AZ</td>
+      <td>Arizona</td>
+      <td>530</td>
+      <td>18184</td>
+      <td>526</td>
+      <td>3.85</td>
+      <td>2.1</td>
+      <td>3.45</td>
+      <td>3.9</td>
+      <td>...</td>
+      <td>3814</td>
+      <td>1831</td>
+      <td>1679</td>
+      <td>3510</td>
+      <td>327</td>
+      <td>630</td>
+      <td>957</td>
+      <td>412</td>
+      <td>501</td>
+      <td>913</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2005</td>
+      <td>AR</td>
+      <td>Arkansas</td>
+      <td>552</td>
+      <td>1600</td>
+      <td>563</td>
+      <td>3.90</td>
+      <td>2.2</td>
+      <td>3.61</td>
+      <td>4.0</td>
+      <td>...</td>
+      <td>443</td>
+      <td>242</td>
+      <td>226</td>
+      <td>468</td>
+      <td>49</td>
+      <td>83</td>
+      <td>132</td>
+      <td>77</td>
+      <td>93</td>
+      <td>170</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2005</td>
+      <td>CA</td>
+      <td>California</td>
+      <td>522</td>
+      <td>186552</td>
+      <td>504</td>
+      <td>3.76</td>
+      <td>1.8</td>
+      <td>3.32</td>
+      <td>3.8</td>
+      <td>...</td>
+      <td>37605</td>
+      <td>16078</td>
+      <td>14966</td>
+      <td>31044</td>
+      <td>5451</td>
+      <td>8792</td>
+      <td>14243</td>
+      <td>5011</td>
+      <td>4766</td>
+      <td>9777</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 99 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now let's load <strong>State Demographics</strong> as <code>df_states</code>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[53]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_states</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;state_demographics.csv&quot;</span><span class="p">)</span>
+
+<span class="n">df_states</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[53]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>State</th>
+      <th>Age.Percent 65 and Older</th>
+      <th>Age.Percent Under 18 Years</th>
+      <th>Age.Percent Under 5 Years</th>
+      <th>Education.Bachelor's Degree or Higher</th>
+      <th>Education.High School or Higher</th>
+      <th>Employment.Nonemployer Establishments</th>
+      <th>Employment.Private Non-farm Employment</th>
+      <th>Employment.Private Non-farm Employment Percent Change</th>
+      <th>Employment.Private Non-farm Establishments</th>
+      <th>...</th>
+      <th>Sales.Merchant Wholesaler Sales</th>
+      <th>Sales.Retail Sales</th>
+      <th>Sales.Retail Sales per Capita</th>
+      <th>Employment.Firms.American Indian-Owned</th>
+      <th>Employment.Firms.Asian-Owned</th>
+      <th>Employment.Firms.Black-Owned</th>
+      <th>Employment.Firms.Hispanic-Owned</th>
+      <th>Employment.Firms.Native Hawaiian and Other Pacific Islander-Owned</th>
+      <th>Employment.Firms.Total</th>
+      <th>Employment.Firms.Women-Owned</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>United States</td>
+      <td>14.5</td>
+      <td>23.1</td>
+      <td>6.2</td>
+      <td>28.8</td>
+      <td>86.0</td>
+      <td>23005620</td>
+      <td>118266253</td>
+      <td>2.0</td>
+      <td>7488353</td>
+      <td>...</td>
+      <td>41742865</td>
+      <td>39176634</td>
+      <td>12990</td>
+      <td>0.9</td>
+      <td>5.7</td>
+      <td>7.1</td>
+      <td>8.3</td>
+      <td>0.1</td>
+      <td>27092908</td>
+      <td>28.8</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Alabama</td>
+      <td>15.3</td>
+      <td>22.8</td>
+      <td>6.1</td>
+      <td>22.6</td>
+      <td>83.1</td>
+      <td>311578</td>
+      <td>1603100</td>
+      <td>1.1</td>
+      <td>97578</td>
+      <td>...</td>
+      <td>522527</td>
+      <td>573448</td>
+      <td>12364</td>
+      <td>0.8</td>
+      <td>1.8</td>
+      <td>14.8</td>
+      <td>1.2</td>
+      <td>0.1</td>
+      <td>382350</td>
+      <td>28.1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Alaska</td>
+      <td>9.4</td>
+      <td>25.3</td>
+      <td>7.4</td>
+      <td>27.5</td>
+      <td>91.6</td>
+      <td>52991</td>
+      <td>266627</td>
+      <td>3.3</td>
+      <td>20519</td>
+      <td>...</td>
+      <td>45636</td>
+      <td>93033</td>
+      <td>13635</td>
+      <td>10.0</td>
+      <td>3.1</td>
+      <td>1.5</td>
+      <td>0.0</td>
+      <td>0.3</td>
+      <td>68728</td>
+      <td>25.9</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Arizona</td>
+      <td>15.9</td>
+      <td>24.1</td>
+      <td>6.4</td>
+      <td>26.9</td>
+      <td>85.7</td>
+      <td>420233</td>
+      <td>2173205</td>
+      <td>1.8</td>
+      <td>132762</td>
+      <td>...</td>
+      <td>575734</td>
+      <td>867588</td>
+      <td>13637</td>
+      <td>1.9</td>
+      <td>3.3</td>
+      <td>2.0</td>
+      <td>10.7</td>
+      <td>0.0</td>
+      <td>491529</td>
+      <td>28.1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Arkansas</td>
+      <td>15.7</td>
+      <td>23.8</td>
+      <td>6.5</td>
+      <td>20.1</td>
+      <td>83.7</td>
+      <td>191530</td>
+      <td>978094</td>
+      <td>0.0</td>
+      <td>64772</td>
+      <td>...</td>
+      <td>296597</td>
+      <td>329742</td>
+      <td>11602</td>
+      <td>1.1</td>
+      <td>1.4</td>
+      <td>5.5</td>
+      <td>2.3</td>
+      <td>0.1</td>
+      <td>238994</td>
+      <td>24.5</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 51 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>One problem we should note is that <code>df_sat</code> data has 11 observations per state, 1 for each year from 2005 to 2015 (inclusive) and the <code>df_states</code> data set has 1 observation per state as an average of values from 2007-2014 (inclusive.) In order to align these date sets more reasonably, we will average values from the <code>df_sat</code> dataset over 2007-2014 so as to have one summary observation per state like <code>df_states</code>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[54]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Get slice of 2007-2014 observations</span>
+<span class="n">df_sat_2007_2014</span> <span class="o">=</span> <span class="n">df_sat</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">df_sat</span><span class="p">[</span><span class="s2">&quot;Year&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">2007</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df_sat</span><span class="p">[</span><span class="s2">&quot;Year&quot;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">2014</span><span class="p">)]</span>
+
+<span class="c1"># Group by state code</span>
+<span class="n">groups</span> <span class="o">=</span> <span class="n">df_sat_2007_2014</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;State.Name&quot;</span><span class="p">)</span>
+
+<span class="c1"># Average values by group, store if df_sat_agg</span>
+<span class="n">df_sat_agg</span> <span class="o">=</span> <span class="n">groups</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">)</span>
+
+<span class="n">df_sat_agg</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[54]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Year</th>
+      <th>Total.Math</th>
+      <th>Total.Test-takers</th>
+      <th>Total.Verbal</th>
+      <th>Academic Subjects.Arts/Music.Average GPA</th>
+      <th>Academic Subjects.Arts/Music.Average Years</th>
+      <th>Academic Subjects.English.Average GPA</th>
+      <th>Academic Subjects.English.Average Years</th>
+      <th>Academic Subjects.Foreign Languages.Average GPA</th>
+      <th>Academic Subjects.Foreign Languages.Average Years</th>
+      <th>...</th>
+      <th>Score Ranges.Between 600 to 700.Math.Total</th>
+      <th>Score Ranges.Between 600 to 700.Verbal.Females</th>
+      <th>Score Ranges.Between 600 to 700.Verbal.Males</th>
+      <th>Score Ranges.Between 600 to 700.Verbal.Total</th>
+      <th>Score Ranges.Between 700 to 800.Math.Females</th>
+      <th>Score Ranges.Between 700 to 800.Math.Males</th>
+      <th>Score Ranges.Between 700 to 800.Math.Total</th>
+      <th>Score Ranges.Between 700 to 800.Verbal.Females</th>
+      <th>Score Ranges.Between 700 to 800.Verbal.Males</th>
+      <th>Score Ranges.Between 700 to 800.Verbal.Total</th>
+    </tr>
+    <tr>
+      <th>State.Name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Alabama</th>
+      <td>2010.5</td>
+      <td>547.000</td>
+      <td>3553.750</td>
+      <td>552.500</td>
+      <td>3.90375</td>
+      <td>2.275</td>
+      <td>3.59875</td>
+      <td>3.9000</td>
+      <td>3.57750</td>
+      <td>2.6000</td>
+      <td>...</td>
+      <td>987.500</td>
+      <td>567.375</td>
+      <td>477.250</td>
+      <td>1044.875</td>
+      <td>186.250</td>
+      <td>297.625</td>
+      <td>483.875</td>
+      <td>244.250</td>
+      <td>256.625</td>
+      <td>500.875</td>
+    </tr>
+    <tr>
+      <th>Alaska</th>
+      <td>2010.5</td>
+      <td>517.875</td>
+      <td>3809.000</td>
+      <td>519.750</td>
+      <td>3.79125</td>
+      <td>2.025</td>
+      <td>3.46875</td>
+      <td>3.8875</td>
+      <td>3.42750</td>
+      <td>2.2750</td>
+      <td>...</td>
+      <td>820.000</td>
+      <td>458.000</td>
+      <td>378.875</td>
+      <td>836.875</td>
+      <td>121.000</td>
+      <td>177.500</td>
+      <td>298.500</td>
+      <td>175.125</td>
+      <td>154.250</td>
+      <td>329.375</td>
+    </tr>
+    <tr>
+      <th>Arizona</th>
+      <td>2010.5</td>
+      <td>525.875</td>
+      <td>21462.375</td>
+      <td>518.500</td>
+      <td>3.84875</td>
+      <td>2.250</td>
+      <td>3.48750</td>
+      <td>3.9000</td>
+      <td>3.45750</td>
+      <td>2.5125</td>
+      <td>...</td>
+      <td>5478.000</td>
+      <td>2780.000</td>
+      <td>2448.000</td>
+      <td>5228.375</td>
+      <td>617.125</td>
+      <td>1000.125</td>
+      <td>1617.250</td>
+      <td>718.000</td>
+      <td>686.375</td>
+      <td>1404.375</td>
+    </tr>
+    <tr>
+      <th>Arkansas</th>
+      <td>2010.5</td>
+      <td>570.625</td>
+      <td>1338.750</td>
+      <td>571.375</td>
+      <td>3.91125</td>
+      <td>2.425</td>
+      <td>3.68875</td>
+      <td>4.0000</td>
+      <td>3.68250</td>
+      <td>2.6750</td>
+      <td>...</td>
+      <td>460.125</td>
+      <td>234.125</td>
+      <td>206.375</td>
+      <td>440.500</td>
+      <td>70.625</td>
+      <td>128.500</td>
+      <td>199.125</td>
+      <td>113.000</td>
+      <td>116.750</td>
+      <td>229.750</td>
+    </tr>
+    <tr>
+      <th>California</th>
+      <td>2010.5</td>
+      <td>515.625</td>
+      <td>218100.375</td>
+      <td>498.750</td>
+      <td>3.77750</td>
+      <td>1.925</td>
+      <td>3.37750</td>
+      <td>3.9000</td>
+      <td>3.35625</td>
+      <td>2.8000</td>
+      <td>...</td>
+      <td>49926.500</td>
+      <td>24301.750</td>
+      <td>21500.375</td>
+      <td>45804.375</td>
+      <td>8330.250</td>
+      <td>12506.375</td>
+      <td>20837.000</td>
+      <td>7368.250</td>
+      <td>7131.375</td>
+      <td>14499.875</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 97 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Finally, we can drop the column <strong>Year</strong> since it is no longer meaningful, and we will also rename <strong>State.Name</strong> to <strong>State</strong> to make joining easier in the following cells.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[55]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_sat_agg</span> <span class="o">=</span> <span class="n">df_sat_agg</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Year&quot;</span><span class="p">])</span>
+<span class="n">df_sat_agg</span> <span class="o">=</span> <span class="n">df_sat_agg</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">df_sat_agg</span> <span class="o">=</span> <span class="n">df_sat_agg</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;State.Name&quot;</span> <span class="p">:</span> <span class="s2">&quot;State&quot;</span><span class="p">})</span>
+
+<span class="n">df_sat_agg</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[55]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>State</th>
+      <th>Total.Math</th>
+      <th>Total.Test-takers</th>
+      <th>Total.Verbal</th>
+      <th>Academic Subjects.Arts/Music.Average GPA</th>
+      <th>Academic Subjects.Arts/Music.Average Years</th>
+      <th>Academic Subjects.English.Average GPA</th>
+      <th>Academic Subjects.English.Average Years</th>
+      <th>Academic Subjects.Foreign Languages.Average GPA</th>
+      <th>Academic Subjects.Foreign Languages.Average Years</th>
+      <th>...</th>
+      <th>Score Ranges.Between 600 to 700.Math.Total</th>
+      <th>Score Ranges.Between 600 to 700.Verbal.Females</th>
+      <th>Score Ranges.Between 600 to 700.Verbal.Males</th>
+      <th>Score Ranges.Between 600 to 700.Verbal.Total</th>
+      <th>Score Ranges.Between 700 to 800.Math.Females</th>
+      <th>Score Ranges.Between 700 to 800.Math.Males</th>
+      <th>Score Ranges.Between 700 to 800.Math.Total</th>
+      <th>Score Ranges.Between 700 to 800.Verbal.Females</th>
+      <th>Score Ranges.Between 700 to 800.Verbal.Males</th>
+      <th>Score Ranges.Between 700 to 800.Verbal.Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Alabama</td>
+      <td>547.000</td>
+      <td>3553.750</td>
+      <td>552.500</td>
+      <td>3.90375</td>
+      <td>2.275</td>
+      <td>3.59875</td>
+      <td>3.9000</td>
+      <td>3.57750</td>
+      <td>2.6000</td>
+      <td>...</td>
+      <td>987.500</td>
+      <td>567.375</td>
+      <td>477.250</td>
+      <td>1044.875</td>
+      <td>186.250</td>
+      <td>297.625</td>
+      <td>483.875</td>
+      <td>244.250</td>
+      <td>256.625</td>
+      <td>500.875</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Alaska</td>
+      <td>517.875</td>
+      <td>3809.000</td>
+      <td>519.750</td>
+      <td>3.79125</td>
+      <td>2.025</td>
+      <td>3.46875</td>
+      <td>3.8875</td>
+      <td>3.42750</td>
+      <td>2.2750</td>
+      <td>...</td>
+      <td>820.000</td>
+      <td>458.000</td>
+      <td>378.875</td>
+      <td>836.875</td>
+      <td>121.000</td>
+      <td>177.500</td>
+      <td>298.500</td>
+      <td>175.125</td>
+      <td>154.250</td>
+      <td>329.375</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Arizona</td>
+      <td>525.875</td>
+      <td>21462.375</td>
+      <td>518.500</td>
+      <td>3.84875</td>
+      <td>2.250</td>
+      <td>3.48750</td>
+      <td>3.9000</td>
+      <td>3.45750</td>
+      <td>2.5125</td>
+      <td>...</td>
+      <td>5478.000</td>
+      <td>2780.000</td>
+      <td>2448.000</td>
+      <td>5228.375</td>
+      <td>617.125</td>
+      <td>1000.125</td>
+      <td>1617.250</td>
+      <td>718.000</td>
+      <td>686.375</td>
+      <td>1404.375</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Arkansas</td>
+      <td>570.625</td>
+      <td>1338.750</td>
+      <td>571.375</td>
+      <td>3.91125</td>
+      <td>2.425</td>
+      <td>3.68875</td>
+      <td>4.0000</td>
+      <td>3.68250</td>
+      <td>2.6750</td>
+      <td>...</td>
+      <td>460.125</td>
+      <td>234.125</td>
+      <td>206.375</td>
+      <td>440.500</td>
+      <td>70.625</td>
+      <td>128.500</td>
+      <td>199.125</td>
+      <td>113.000</td>
+      <td>116.750</td>
+      <td>229.750</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>California</td>
+      <td>515.625</td>
+      <td>218100.375</td>
+      <td>498.750</td>
+      <td>3.77750</td>
+      <td>1.925</td>
+      <td>3.37750</td>
+      <td>3.9000</td>
+      <td>3.35625</td>
+      <td>2.8000</td>
+      <td>...</td>
+      <td>49926.500</td>
+      <td>24301.750</td>
+      <td>21500.375</td>
+      <td>45804.375</td>
+      <td>8330.250</td>
+      <td>12506.375</td>
+      <td>20837.000</td>
+      <td>7368.250</td>
+      <td>7131.375</td>
+      <td>14499.875</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 97 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now we can join our two data sets <code>df_states</code> and <code>df_sat_agg</code> on the <strong>State</strong> column. We will perform an inner join since there's no sense in including areas that are only present in one data set in this multiple data set analysis (e.g. Puerto Rico (PR) only present in SAT scores.)</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[62]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_states</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;State&quot;</span><span class="p">)</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">df_states</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_sat_agg</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;inner&quot;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;State&quot;</span><span class="p">)</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[62]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>State</th>
+      <th>Age.Percent 65 and Older</th>
+      <th>Age.Percent Under 18 Years</th>
+      <th>Age.Percent Under 5 Years</th>
+      <th>Education.Bachelor's Degree or Higher</th>
+      <th>Education.High School or Higher</th>
+      <th>Employment.Nonemployer Establishments</th>
+      <th>Employment.Private Non-farm Employment</th>
+      <th>Employment.Private Non-farm Employment Percent Change</th>
+      <th>Employment.Private Non-farm Establishments</th>
+      <th>...</th>
+      <th>Score Ranges.Between 600 to 700.Math.Total</th>
+      <th>Score Ranges.Between 600 to 700.Verbal.Females</th>
+      <th>Score Ranges.Between 600 to 700.Verbal.Males</th>
+      <th>Score Ranges.Between 600 to 700.Verbal.Total</th>
+      <th>Score Ranges.Between 700 to 800.Math.Females</th>
+      <th>Score Ranges.Between 700 to 800.Math.Males</th>
+      <th>Score Ranges.Between 700 to 800.Math.Total</th>
+      <th>Score Ranges.Between 700 to 800.Verbal.Females</th>
+      <th>Score Ranges.Between 700 to 800.Verbal.Males</th>
+      <th>Score Ranges.Between 700 to 800.Verbal.Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Alabama</td>
+      <td>15.3</td>
+      <td>22.8</td>
+      <td>6.1</td>
+      <td>22.6</td>
+      <td>83.1</td>
+      <td>311578</td>
+      <td>1603100</td>
+      <td>1.1</td>
+      <td>97578</td>
+      <td>...</td>
+      <td>987.500</td>
+      <td>567.375</td>
+      <td>477.250</td>
+      <td>1044.875</td>
+      <td>186.250</td>
+      <td>297.625</td>
+      <td>483.875</td>
+      <td>244.250</td>
+      <td>256.625</td>
+      <td>500.875</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Alaska</td>
+      <td>9.4</td>
+      <td>25.3</td>
+      <td>7.4</td>
+      <td>27.5</td>
+      <td>91.6</td>
+      <td>52991</td>
+      <td>266627</td>
+      <td>3.3</td>
+      <td>20519</td>
+      <td>...</td>
+      <td>820.000</td>
+      <td>458.000</td>
+      <td>378.875</td>
+      <td>836.875</td>
+      <td>121.000</td>
+      <td>177.500</td>
+      <td>298.500</td>
+      <td>175.125</td>
+      <td>154.250</td>
+      <td>329.375</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Arizona</td>
+      <td>15.9</td>
+      <td>24.1</td>
+      <td>6.4</td>
+      <td>26.9</td>
+      <td>85.7</td>
+      <td>420233</td>
+      <td>2173205</td>
+      <td>1.8</td>
+      <td>132762</td>
+      <td>...</td>
+      <td>5478.000</td>
+      <td>2780.000</td>
+      <td>2448.000</td>
+      <td>5228.375</td>
+      <td>617.125</td>
+      <td>1000.125</td>
+      <td>1617.250</td>
+      <td>718.000</td>
+      <td>686.375</td>
+      <td>1404.375</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Arkansas</td>
+      <td>15.7</td>
+      <td>23.8</td>
+      <td>6.5</td>
+      <td>20.1</td>
+      <td>83.7</td>
+      <td>191530</td>
+      <td>978094</td>
+      <td>0.0</td>
+      <td>64772</td>
+      <td>...</td>
+      <td>460.125</td>
+      <td>234.125</td>
+      <td>206.375</td>
+      <td>440.500</td>
+      <td>70.625</td>
+      <td>128.500</td>
+      <td>199.125</td>
+      <td>113.000</td>
+      <td>116.750</td>
+      <td>229.750</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>California</td>
+      <td>12.9</td>
+      <td>23.6</td>
+      <td>6.5</td>
+      <td>30.7</td>
+      <td>81.2</td>
+      <td>2983996</td>
+      <td>13401863</td>
+      <td>3.5</td>
+      <td>874243</td>
+      <td>...</td>
+      <td>49926.500</td>
+      <td>24301.750</td>
+      <td>21500.375</td>
+      <td>45804.375</td>
+      <td>8330.250</td>
+      <td>12506.375</td>
+      <td>20837.000</td>
+      <td>7368.250</td>
+      <td>7131.375</td>
+      <td>14499.875</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 147 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Success! We now have one conglomerated dataframe with one observation of average 2007-2014 values per state. While the column names are long, it would be tedious to rename every single one, especially if we are only using a select few of them. To avoid this, we will simply rename columns when we use them.
+<br><br>
+Now, let us investigate one of our initial questions: <ul><li>Do states with a higher rate of languages other than English at home typically see a lower SAT verbal score?</li></ul></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[69]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_language</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s2">&quot;State&quot;</span><span class="p">,</span> <span class="s2">&quot;Total.Math&quot;</span><span class="p">,</span> <span class="s2">&quot;Total.Verbal&quot;</span><span class="p">,</span> <span class="s2">&quot;Miscellaneous.Language Other than English at Home&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
+    <span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Total.Math&quot;</span> <span class="p">:</span> <span class="s2">&quot;Average Math&quot;</span><span class="p">,</span> <span class="s2">&quot;Total.Verbal&quot;</span> <span class="p">:</span> <span class="s2">&quot;Average Verbal&quot;</span><span class="p">,</span> <span class="s2">&quot;Miscellaneous.Language Other than English at Home&quot;</span> <span class="p">:</span> <span class="s2">&quot;% Other Language at Home&quot;</span><span class="p">})</span>
+
+<span class="n">df_language</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[69]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>State</th>
+      <th>Average Math</th>
+      <th>Average Verbal</th>
+      <th>% Other Language at Home</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Alabama</td>
+      <td>547.000</td>
+      <td>552.500</td>
+      <td>5.2</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Alaska</td>
+      <td>517.875</td>
+      <td>519.750</td>
+      <td>16.2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Arizona</td>
+      <td>525.875</td>
+      <td>518.500</td>
+      <td>26.8</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Arkansas</td>
+      <td>570.625</td>
+      <td>571.375</td>
+      <td>7.2</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>California</td>
+      <td>515.625</td>
+      <td>498.750</td>
+      <td>43.7</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's draw a scatterplot to get an initial feel for the data.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[84]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_language</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;% Other Language at Home&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;Average Verbal&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Corrleation between % Other Language at Home and Average Verbal is &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">df_language</span><span class="p">[</span><span class="s2">&quot;Average Verbal&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">corr</span><span class="p">(</span><span class="n">df_language</span><span class="p">[</span><span class="s2">&quot;% Other Language at Home&quot;</span><span class="p">])))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Corrleation between % Other Language at Home and Average Verbal is -0.4340229896191231
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>So there does seem to be somewhat of a negative correlation between % Other Language at Home and Average Verbal score i.e. a higher % Other Language at Home may be indicative of a lower Average Verbal score, but we can not immediately make conclusive statements. One issue that comes to mind is: what if states with a higher % of Other Language at Home are states that perform worse on the SATs in general due to other factors (i.e. there is some uninvestigated <strong>collinearity</strong> between % of Other Language at Home and other variables that may or may not be present in our data set.)
+<br><br>We will look into ways to account for this, and one tool we will use here is the very strong correlation between Average Math scores and Average Verbal scores.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[79]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_language</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;Average Math&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;Average Verbal&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Corrleation between Average Math and Average Verbal is &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">df_language</span><span class="p">[</span><span class="s2">&quot;Average Math&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">corr</span><span class="p">(</span><span class="n">df_language</span><span class="p">[</span><span class="s2">&quot;Average Verbal&quot;</span><span class="p">])))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Corrleation between Average Math and Average Verbal is 0.9793670202895195
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>That is to say, average math score is a very good predictor of average reading score. Then we can investigate average reading score as a % of average math score and see if % Other Language at Home explains any underpeformance.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[85]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_language</span><span class="p">[</span><span class="s2">&quot;Average Verbal Normed&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_language</span><span class="p">[</span><span class="s2">&quot;Average Math&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df_language</span><span class="p">[</span><span class="s2">&quot;Average Verbal&quot;</span><span class="p">]</span>
+
+<span class="n">df_language</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;% Other Language at Home&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;Average Verbal Normed&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Corrleation between % Other Language at Home and Average Verbal is &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">df_language</span><span class="p">[</span><span class="s2">&quot;Average Verbal Normed&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">corr</span><span class="p">(</span><span class="n">df_language</span><span class="p">[</span><span class="s2">&quot;% Other Language at Home&quot;</span><span class="p">])))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Corrleation between % Other Language at Home and Average Verbal is 0.4268973310585881
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The correlation coefficient is nearly the same in magnitude, but has switched signs completely! That is, with this transformation of the variable, we see an entirely different trend that (weakly) suggests a state with a higher % Other Language at Home performs relatively better on the Verbal section than states with a lower %! This is a good example of why it is important to transform variables and look at trends from different perspectives.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[86]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># MORE TO COME</span>
 </pre></div>
 
     </div>
